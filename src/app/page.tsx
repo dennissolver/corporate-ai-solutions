@@ -1,231 +1,291 @@
 import Link from 'next/link'
-import { ArrowRight, Zap, Users, TrendingUp, Briefcase, MessageCircle } from 'lucide-react'
+import { ArrowRight, Mic, Users, Layers, Rocket, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { PLATFORMS, STATS, SKOOL } from '@/lib/constants'
+import { PLATFORMS, SKOOL } from '@/lib/constants'
 
 export default function HomePage() {
-  const featuredPlatforms = PLATFORMS.filter(p => p.featured || p.status === 'live').slice(0, 6)
+  const featuredPlatforms = PLATFORMS.filter(p => p.featured || p.status === 'live').slice(0, 4)
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-grid opacity-50" />
-        <div className="max-w-7xl mx-auto px-6 py-24 relative z-10">
-          <div className="tag mb-6">The Long Tail AI Studio</div>
+      {/* Hero - What We Do */}
+      <section className="min-h-[80vh] flex flex-col justify-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid opacity-30" />
+        <div className="max-w-5xl mx-auto px-6 py-24 relative z-10">
+          <div className="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 px-4 py-2 rounded-full mb-8">
+            <Mic size={16} className="text-accent" />
+            <span className="text-sm text-accent">AI Voice Agents for Business</span>
+          </div>
           
           <h1 className="mb-6">
-            <span className="block">Build to $1M ARR.</span>
-            <span className="block text-gradient-accent">Auction for 6-10x.</span>
-            <span className="block">Repeat.</span>
+            We build AI platforms that improve how businesses talk to their customers.
           </h1>
           
-          <p className="text-xl md:text-2xl text-gray-light max-w-3xl mb-8 leading-relaxed">
-            AI collapsed build costs. We&apos;re building the portfolio that profits.
-            <strong className="text-white"> 17 platforms live.</strong> Each one started as someone&apos;s problem.
-            We don&apos;t need unicorns. We need 50 subscribers per platform.
+          <p className="text-xl text-gray-light max-w-3xl mb-10 leading-relaxed">
+            Voice AI that actually works. Not chatbots that frustrate. Not scripts that bore.
+            Real conversational AI that handles the conversations your team doesn&apos;t have time for.
           </p>
 
-          <div className="flex flex-wrap gap-4 mb-12">
-            <Button href="/marketplace" size="lg">
-              Use the Platforms <ArrowRight size={20} />
+          <div className="flex flex-wrap gap-4">
+            <Button href="#solutions" size="lg">
+              See What We&apos;ve Built <ArrowRight size={20} />
             </Button>
-            <Button href="/partner" variant="orange" size="lg">
-              Build With Us <ArrowRight size={20} />
-            </Button>
-            <Button href="/studio/invest" variant="secondary" size="lg">
-              Invest in the Studio
+            <Button href="#journey" variant="secondary" size="lg">
+              How We Got Here
             </Button>
           </div>
+        </div>
+      </section>
 
-          <div className="flex flex-wrap gap-12 pt-8 border-t border-gray-border">
-            {STATS.map((stat) => (
-              <div key={stat.label}>
-                <div className="font-mono text-4xl md:text-5xl font-bold text-accent">{stat.number}</div>
-                <div className="text-sm text-gray-light mt-1">{stat.label}</div>
+      {/* The Journey Story */}
+      <section id="journey" className="section bg-gray-dark">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-accent font-medium mb-4">Our Story</p>
+            <h2>From Solving Our Own Problems to Building for Others</h2>
+          </div>
+
+          {/* Timeline */}
+          <div className="space-y-0">
+            {/* Step 1 */}
+            <div className="relative pl-12 pb-12 border-l-2 border-gray-mid">
+              <div className="absolute left-0 top-0 w-6 h-6 -translate-x-[13px] bg-accent rounded-full flex items-center justify-center">
+                <span className="text-black text-xs font-bold">1</span>
               </div>
-            ))}
-            <div>
-              <div className="font-mono text-4xl md:text-5xl font-bold text-accent">$5K</div>
-              <div className="text-sm text-gray-light mt-1">Avg Build Cost</div>
+              <div className="bg-black/30 p-6 rounded-lg border border-gray-border">
+                <p className="text-accent text-sm font-medium mb-2">The Beginning</p>
+                <h3 className="text-xl font-semibold mb-3">Solving Our Own Business Problems</h3>
+                <p className="text-gray-light">
+                  Like most founders, we started by scratching our own itch. AI coding support let us 
+                  build internal tools 10x faster than hiring developers. What used to take months 
+                  took days.
+                </p>
+              </div>
             </div>
-            <div>
-              <div className="font-mono text-4xl md:text-5xl font-bold text-accent">6-10x</div>
-              <div className="text-sm text-gray-light mt-1">Exit Multiple</div>
+
+            {/* Step 2 */}
+            <div className="relative pl-12 pb-12 border-l-2 border-gray-mid">
+              <div className="absolute left-0 top-0 w-6 h-6 -translate-x-[13px] bg-accent rounded-full flex items-center justify-center">
+                <span className="text-black text-xs font-bold">2</span>
+              </div>
+              <div className="bg-black/30 p-6 rounded-lg border border-gray-border">
+                <p className="text-accent text-sm font-medium mb-2">The Pivot</p>
+                <h3 className="text-xl font-semibold mb-3">Voice AI Changed Everything</h3>
+                <p className="text-gray-light">
+                  We built voice AI agents to improve user experience in our own business. 
+                  No more &quot;press 1 for support.&quot; Real conversations. Real results. 
+                  Customer satisfaction went up. Support costs went down.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 3 */}
+            <div className="relative pl-12 pb-12 border-l-2 border-gray-mid">
+              <div className="absolute left-0 top-0 w-6 h-6 -translate-x-[13px] bg-accent rounded-full flex items-center justify-center">
+                <span className="text-black text-xs font-bold">3</span>
+              </div>
+              <div className="bg-black/30 p-6 rounded-lg border border-gray-border">
+                <p className="text-accent text-sm font-medium mb-2">The Scale</p>
+                <h3 className="text-xl font-semibold mb-3">Single-Use to Multi-User Platforms</h3>
+                <p className="text-gray-light">
+                  People saw what we built. They wanted it. So we turned our single-use solutions 
+                  into platforms others could use. RaiseReady for pitch practice. TenderWatch for 
+                  government tenders. Each one solving a real problem we&apos;d already solved.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 4 */}
+            <div className="relative pl-12 pb-12 border-l-2 border-gray-mid">
+              <div className="absolute left-0 top-0 w-6 h-6 -translate-x-[13px] bg-accent rounded-full flex items-center justify-center">
+                <span className="text-black text-xs font-bold">4</span>
+              </div>
+              <div className="bg-black/30 p-6 rounded-lg border border-gray-border">
+                <p className="text-accent text-sm font-medium mb-2">The Accelerant</p>
+                <h3 className="text-xl font-semibold mb-3">Generator: White-Label at Speed</h3>
+                <p className="text-gray-light">
+                  We built Generator—our internal platform for spinning up white-label versions 
+                  of our solutions. Now we can deploy a customized platform for a client in days, 
+                  not months. Same quality. Fraction of the time.
+                </p>
+              </div>
+            </div>
+
+            {/* Step 5 - Current */}
+            <div className="relative pl-12">
+              <div className="absolute left-0 top-0 w-6 h-6 -translate-x-[13px] bg-orange rounded-full flex items-center justify-center">
+                <span className="text-black text-xs font-bold">5</span>
+              </div>
+              <div className="bg-orange/10 p-6 rounded-lg border-2 border-orange">
+                <p className="text-orange text-sm font-medium mb-2">Where We Are Now</p>
+                <h3 className="text-xl font-semibold mb-3">Long Tail Venture Studio</h3>
+                <p className="text-gray-light mb-4">
+                  All of this led to a realization: we&apos;d built a machine for turning problems 
+                  into platforms. Fast. Cheap. Repeatable. That&apos;s the Long Tail Venture Studio—
+                  a portfolio of AI platforms, each solving a specific problem, each growing toward 
+                  $1M ARR, each a potential exit.
+                </p>
+                <p className="text-white font-medium">
+                  17 platforms built. More coming. And we&apos;re just getting started.
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* What Brings You Here - 5 Paths */}
-      <section className="section bg-gray-dark">
-        <div className="max-w-7xl mx-auto">
+      {/* What This Means For You - Three Paths */}
+      <section id="solutions" className="section">
+        <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <div className="tag tag-center mb-4">Choose Your Path</div>
-            <h2>What Brings You Here?</h2>
+            <p className="text-accent font-medium mb-4">Choose Your Path</p>
+            <h2 className="mb-4">What Brings You Here?</h2>
+            <p className="text-gray-light text-lg max-w-2xl mx-auto">
+              Whether you&apos;re looking for a solution, need one built, or want to join the journey—
+              there&apos;s a path for you.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-6">
-            {/* Use */}
-            <div className="card-green p-8">
-              <div className="text-4xl mb-4">🛠️</div>
-              <h3 className="text-xl font-bold mb-2">USE</h3>
-              <p className="text-gray-light mb-4">I need AI tools that work. Browse 17 platforms. Subscribe.</p>
-              <ul className="text-sm text-gray-light space-y-2 mb-6">
-                <li>• Voice AI coaching</li>
-                <li>• Business intelligence</li>
-                <li>• Industry solutions</li>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {/* Path 1: See Solutions */}
+            <div className="bg-gray-dark p-8 rounded-lg border-2 border-accent/50 hover:border-accent transition-colors group">
+              <div className="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-6">
+                <Layers className="text-accent" size={24} />
+              </div>
+              <h3 className="text-2xl font-semibold mb-3">See Our Solutions</h3>
+              <p className="text-gray-light mb-6">
+                Browse 17 AI platforms. Voice coaching, business intelligence, industry tools. 
+                Subscribe to what you need.
+              </p>
+              <ul className="space-y-3 mb-8 text-sm">
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-accent" />
+                  RaiseReady – AI pitch coaching
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-accent" />
+                  Connexions – Voice interview agents
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-accent" />
+                  TenderWatch – Government tender alerts
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-accent" />
+                  + 14 more platforms
+                </li>
               </ul>
               <Button href="/marketplace" fullWidth>
-                Marketplace → <span className="text-sm font-normal ml-2">from $49/mo</span>
+                Browse Marketplace
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
+              <p className="text-center text-sm text-gray-light mt-4">From $49/month</p>
             </div>
 
-            {/* Build */}
-            <div className="card-orange p-8">
-              <div className="text-4xl mb-4">🤝</div>
-              <h3 className="text-xl font-bold mb-2">BUILD</h3>
-              <p className="text-gray-light mb-4">I have a problem worth solving. Partner with us. Share the revenue.</p>
-              <ul className="text-sm text-gray-light space-y-2 mb-6">
-                <li>• You bring the problem</li>
-                <li>• We build the solution</li>
-                <li>• Revenue share 10-30%</li>
+            {/* Path 2: Build With Us */}
+            <div className="bg-gray-dark p-8 rounded-lg border-2 border-orange/50 hover:border-orange transition-colors group">
+              <div className="w-12 h-12 bg-orange/20 rounded-lg flex items-center justify-center mb-6">
+                <Users className="text-orange" size={24} />
+              </div>
+              <h3 className="text-2xl font-semibold mb-3">Build Your Solution</h3>
+              <p className="text-gray-light mb-6">
+                Don&apos;t see your problem in our marketplace? Bring it to us. 
+                We&apos;ll build it together and share the revenue.
+              </p>
+              <ul className="space-y-3 mb-8 text-sm">
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-orange" />
+                  You bring the problem & expertise
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-orange" />
+                  We build in 7 days
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-orange" />
+                  Revenue share: 10-30% yours
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-orange" />
+                  No upfront cost
+                </li>
               </ul>
               <Button href="/partner" variant="orange" fullWidth>
-                Partner → <span className="text-sm font-normal ml-2">Rev-share</span>
+                Partner With Us
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
+              <p className="text-center text-sm text-gray-light mt-4">Revenue share model</p>
             </div>
 
-            {/* Invest */}
-            <div className="card p-8 border-2 border-accent">
-              <div className="text-4xl mb-4">💰</div>
-              <h3 className="text-xl font-bold mb-2">INVEST</h3>
-              <p className="text-gray-light mb-4">I want exposure to AI ventures. Fund the studio. Back 17+ platforms.</p>
-              <ul className="text-sm text-gray-light space-y-2 mb-6">
-                <li>• Portfolio diversification</li>
-                <li>• Cash flow + exits</li>
-                <li>• Not hunting unicorns</li>
+            {/* Path 3: Join the Journey */}
+            <div className="bg-gray-dark p-8 rounded-lg border-2 border-purple/50 hover:border-purple transition-colors group">
+              <div className="w-12 h-12 bg-purple/20 rounded-lg flex items-center justify-center mb-6">
+                <Rocket className="text-purple" size={24} />
+              </div>
+              <h3 className="text-2xl font-semibold mb-3">Join the Journey</h3>
+              <p className="text-gray-light mb-6">
+                Help us build the Long Tail. We&apos;re looking for GTM experts, investors, 
+                and DevOps to harden our builds.
+              </p>
+              <ul className="space-y-3 mb-8 text-sm">
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-purple" />
+                  <strong className="text-white">GTM/Growth:</strong> Scale to $1M ARR
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-purple" />
+                  <strong className="text-white">Investors:</strong> Back the portfolio
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-purple" />
+                  <strong className="text-white">DevOps:</strong> Harden platforms
+                </li>
+                <li className="flex items-center gap-2 text-gray-light">
+                  <ChevronRight size={16} className="text-purple" />
+                  Equity + revenue share
+                </li>
               </ul>
-              <Button href="/studio/invest" fullWidth>
-                Invest → <span className="text-sm font-normal ml-2">$25K min</span>
+              <Button href="/studio/join" variant="purple" fullWidth>
+                Join Long Tail
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-            </div>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Join Team */}
-            <div className="card p-8">
-              <div className="flex items-start gap-4">
-                <div className="text-3xl">🚀</div>
-                <div className="flex-grow">
-                  <h3 className="text-xl font-bold mb-2">JOIN THE TEAM</h3>
-                  <p className="text-gray-light mb-4">
-                    Help us build and scale. Equity + upside in every platform you touch.
-                  </p>
-                  <div className="flex flex-wrap gap-3">
-                    <span className="text-xs bg-gray-mid px-3 py-1 text-gray-light">DevOps</span>
-                    <span className="text-xs bg-gray-mid px-3 py-1 text-gray-light">GTM / Growth</span>
-                  </div>
-                  <Button href="/studio/join" variant="secondary" className="mt-4">
-                    See Open Roles →
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Community */}
-            <div className="card-purple p-8">
-              <div className="flex items-start gap-4">
-                <div className="text-3xl">🧠</div>
-                <div className="flex-grow">
-                  <h3 className="text-xl font-bold mb-2">JOIN THE COMMUNITY</h3>
-                  <p className="text-gray-light mb-4">
-                    Not ready yet? Join &quot;The Easily Distracted&quot; on Skool. Free.
-                  </p>
-                  <p className="text-sm text-purple-light mb-4">
-                    For problem-solvers who can&apos;t ignore mess. Share ideas, find collaborators.
-                  </p>
-                  <Button href={SKOOL.url} external variant="purple">
-                    Join Free on Skool →
-                  </Button>
-                </div>
-              </div>
+              <p className="text-center text-sm text-gray-light mt-4">Equity + upside</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* The Long Tail Thesis */}
-      <section className="section">
-        <div className="max-w-4xl mx-auto">
-          <div className="tag mb-4">Our Thesis</div>
-          <h2 className="mb-8">The Long Tail of AI Solutions</h2>
-          
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="p-6 border border-gray-border">
-              <h3 className="text-lg font-bold mb-3 text-red-400">❌ Traditional VC</h3>
-              <ul className="space-y-2 text-gray-light text-sm">
-                <li>• $500K to build one product</li>
-                <li>• 18 months to market</li>
-                <li>• Need 100x return to matter</li>
-                <li>• 90% failure rate</li>
-                <li>• Pray for moonshots</li>
-              </ul>
-            </div>
-            <div className="p-6 border-2 border-accent bg-accent/5">
-              <h3 className="text-lg font-bold mb-3 text-accent">✓ Long Tail Studio</h3>
-              <ul className="space-y-2 text-gray-light text-sm">
-                <li>• $5K to build one product</li>
-                <li>• 7 days to market</li>
-                <li>• Need 50 subscribers to matter</li>
-                <li>• Portfolio diversification</li>
-                <li>• Moonshots are cream on top</li>
-              </ul>
-            </div>
-          </div>
-
-          <blockquote className="border-l-4 border-accent pl-6 py-4 text-xl text-gray-light italic">
-            &quot;Amazon proved you don&apos;t need bestsellers when you have infinite shelf space.
-            We&apos;re proving you don&apos;t need unicorns when you can build fast and cheap.&quot;
-          </blockquote>
-
-          <div className="mt-8 text-center">
-            <Button href="/studio/thesis">Read the Full Thesis →</Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Platforms */}
+      {/* Featured Platforms Preview */}
       <section className="section bg-gray-dark">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-12">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-12">
             <div>
-              <div className="tag mb-4">Portfolio</div>
-              <h2>17 Platforms Built</h2>
+              <p className="text-accent font-medium mb-2">What We&apos;ve Built</p>
+              <h2>17 Platforms. Real Problems. Real Solutions.</h2>
             </div>
-            <Button href="/studio/portfolio" variant="secondary">
-              View All →
+            <Button href="/marketplace" variant="secondary">
+              View All Platforms →
             </Button>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredPlatforms.map((platform) => (
-              <div key={platform.id} className="card">
+              <div key={platform.id} className="bg-black/50 p-6 rounded-lg border border-gray-border hover:border-accent/50 transition-colors">
                 <div className="flex justify-between items-start mb-4">
-                  <span className="font-mono text-xs text-accent uppercase">{platform.category}</span>
+                  <span className="text-xs text-accent uppercase tracking-wide">{platform.category}</span>
                   {platform.hasVoiceAI && (
-                    <span className="text-xs bg-accent/20 text-accent px-2 py-1">Voice AI</span>
+                    <span className="text-xs bg-accent/20 text-accent px-2 py-1 rounded">Voice AI</span>
                   )}
                 </div>
-                <h3 className="text-lg font-bold mb-2">{platform.name}</h3>
-                <p className="text-sm text-gray-light mb-4">{platform.problem}</p>
+                <h3 className="text-lg font-semibold mb-2">{platform.name}</h3>
+                <p className="text-sm text-gray-light mb-4 line-clamp-2">{platform.problem}</p>
                 <a
                   href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-accent hover:text-white transition-colors"
+                  className="text-sm text-accent hover:text-white transition-colors inline-flex items-center gap-1"
                 >
-                  View Platform →
+                  Learn more <ArrowRight size={14} />
                 </a>
               </div>
             ))}
@@ -233,43 +293,46 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Exit Strategy */}
+      {/* The Two Sides */}
       <section className="section">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="tag tag-center mb-4">The Playbook</div>
-          <h2 className="mb-8">Build → Grow → Exit</h2>
-          
-          <div className="grid grid-cols-4 gap-4 mb-12">
-            {[
-              { step: 'BUILD', detail: '$5-10K', time: '7 days' },
-              { step: 'VALIDATE', detail: '50 subs', time: '6 months' },
-              { step: 'GROW', detail: '$1M ARR', time: '18-24 mo' },
-              { step: 'EXIT', detail: '6-10x', time: 'Auction' },
-            ].map((item, i) => (
-              <div key={item.step} className="relative">
-                <div className="bg-gray-dark p-4 border border-gray-border">
-                  <div className="font-mono text-accent text-xs mb-2">0{i + 1}</div>
-                  <div className="font-bold mb-1">{item.step}</div>
-                  <div className="text-2xl font-bold text-accent">{item.detail}</div>
-                  <div className="text-xs text-gray-light mt-1">{item.time}</div>
-                </div>
-                {i < 3 && (
-                  <div className="hidden md:block absolute top-1/2 -right-2 transform -translate-y-1/2 text-gray-light">
-                    →
-                  </div>
-                )}
-              </div>
-            ))}
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-16">
+            <p className="text-accent font-medium mb-4">Two Sides of the Same Coin</p>
+            <h2>Corporate AI Solutions + Long Tail Venture Studio</h2>
           </div>
 
-          <p className="text-xl text-gray-light mb-8">
-            <strong className="text-white">$10K build cost → $6-10M exit.</strong><br />
-            We don&apos;t need every platform to exit. We need many to reach $1M ARR.
-          </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Corporate AI Solutions */}
+            <div className="p-8 rounded-lg border border-accent/30 bg-accent/5">
+              <h3 className="text-2xl font-semibold mb-4 text-accent">Corporate AI Solutions</h3>
+              <p className="text-gray-light mb-6">
+                The business solutions arm. We build AI voice agents that improve how businesses 
+                interact with customers. Better UX. Lower costs. Happier customers.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-light mb-6">
+                <li>• Voice AI for customer support</li>
+                <li>• Interview and feedback agents</li>
+                <li>• Sales qualification bots</li>
+                <li>• Custom white-label solutions</li>
+              </ul>
+              <Button href="/marketplace">Explore Solutions →</Button>
+            </div>
 
-          <div className="flex justify-center gap-4">
-            <Button href="/studio/invest">Invest in the Portfolio</Button>
-            <Button href="/partner" variant="orange">Bring a Problem</Button>
+            {/* Long Tail Venture Studio */}
+            <div className="p-8 rounded-lg border border-orange/30 bg-orange/5">
+              <h3 className="text-2xl font-semibold mb-4 text-orange">Long Tail Venture Studio</h3>
+              <p className="text-gray-light mb-6">
+                The venture arm. A portfolio of AI platforms, each targeting a specific niche. 
+                Build cheap, grow to $1M ARR, auction for 6-10x. Repeat.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-light mb-6">
+                <li>• 17 platforms and growing</li>
+                <li>• $5K build cost average</li>
+                <li>• Portfolio diversification</li>
+                <li>• Investment opportunities</li>
+              </ul>
+              <Button href="/studio/thesis" variant="orange">Read the Thesis →</Button>
+            </div>
           </div>
         </div>
       </section>
@@ -277,15 +340,17 @@ export default function HomePage() {
       {/* Final CTA */}
       <section className="section bg-gradient-to-b from-gray-dark to-black">
         <div className="max-w-3xl mx-auto text-center">
-          <h2 className="mb-6">Ready to Join the Long Tail?</h2>
+          <h2 className="mb-6">Not Sure Where to Start?</h2>
           <p className="text-xl text-gray-light mb-8">
-            Whether you want to use our platforms, build with us, or invest in the studio—
-            let&apos;s talk.
+            Join our free community. Ask questions. See what others are building. 
+            Find your path when you&apos;re ready.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Button href="/contact" size="lg">Book a Call</Button>
             <Button href={SKOOL.url} external variant="purple" size="lg">
-              Join Community Free
+              Join &quot;The Easily Distracted&quot; Free
+            </Button>
+            <Button href="/contact" variant="secondary" size="lg">
+              Or Just Talk to Us
             </Button>
           </div>
         </div>
