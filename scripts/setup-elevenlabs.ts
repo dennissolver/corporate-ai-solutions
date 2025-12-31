@@ -173,6 +173,10 @@ Never pressure. Be helpful regardless of outcome.`,
 async function createAgent(agent: typeof AGENTS[0]) {
   console.log(`\n🤖 Creating agent: ${agent.name}...`)
 
+  const webhookUrl = process.env.NEXT_PUBLIC_SITE_URL 
+    ? `${process.env.NEXT_PUBLIC_SITE_URL}/api/voice`
+    : 'https://corporate-ai-solutions.vercel.app/api/voice'
+
   const response = await fetch(`${BASE_URL}/convai/agents/create`, {
     method: 'POST',
     headers: {
@@ -191,6 +195,18 @@ async function createAgent(agent: typeof AGENTS[0]) {
         },
         tts: {
           voice_id: agent.voice_id,
+        },
+      },
+      platform_settings: {
+        webhook: {
+          url: webhookUrl,
+          events: [
+            'conversation.started',
+            'conversation.ended', 
+            'transcript.final',
+            'user.input',
+            'agent.response',
+          ],
         },
       },
     }),

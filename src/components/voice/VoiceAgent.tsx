@@ -1,47 +1,144 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { usePathname } from 'next/navigation'
 import { Mic, MicOff, X, MessageCircle } from 'lucide-react'
-import { getAgentForPage } from '@/lib/elevenlabs'
-import { VOICE_AGENTS } from '@/lib/constants'
+import { getAgentForPage, generateSessionId } from '@/lib/elevenlabs'
+import { VOICE_AGENTS, DEFAULT_AGENT } from '@/lib/constants'
+
+interface Message {
+  role: 'user' | 'agent'
+  content: string
+  timestamp: number
+}
 
 export function VoiceAgent() {
   const [isOpen, setIsOpen] = useState(false)
   const [isListening, setIsListening] = useState(false)
   const [isSpeaking, setIsSpeaking] = useState(false)
-  const [transcript, setTranscript] = useState<Array<{ role: 'user' | 'agent'; content: string }>>([])
+  const [transcript, setTranscript] = useState<Message[]>([])
+  const [sessionId] = useState(() => generateSessionId())
+  const [startTime, setStartTime] = useState<number | null>(null)
   const pathname = usePathname()
   
   const agentKey = getAgentForPage(pathname)
-  const agent = VOICE_AGENTS[agentKey]
+  const agent = VOICE_AGENTS[agentKey] || VOICE_AGENTS[DEFAULT_AGENT]
+  
+  // Save conversation to database
+  const saveConversation = useCallback(async (outcome: string = 'completed') => {
+    if (transcript.length <= 1) return // Don't save if only greeting
+    if (!startTime) return
+    
+    try {
+      const durationSeconds = Math.round((Date.now() - startTime) / 1000)
+      
+      await fetch('/api/voice/conversations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: sessionId,
+          agent_name: agent?.name || 'Unknown',
+          page_path: pathname,
+          messages: transcript,
+          duration_seconds: durationSeconds,
+          outcome,
+          lead_captured: false,
+        }),
+      })
+    } catch (error) {
+      console.error('Failed to save conversation:', error)
+    }
+  }, [transcript, sessionId, agent?.name, pathname, startTime])
+
+  // Save conversation when window closes or navigates away
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (transcript.length > 1 && startTime) {
+        navigator.sendBeacon('/api/voice/conversations', JSON.stringify({
+          session_id: sessionId,
+          agent_name: agent?.name || 'Unknown',
+          page_path: pathname,
+          messages: transcript,
+          duration_seconds: Math.round((Date.now() - startTime) / 1000),
+          outcome: 'abandoned',
+          lead_captured: false,
+        }))
+      }
+    }
+    
+    window.addEventListener('beforeunload', handleBeforeUnload)
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload)
+  }, [transcript, sessionId, agent?.name, pathname, startTime])
+
+  const handleClose = () => {
+    saveConversation('completed')
+    setIsOpen(false)
+    setTranscript([])
+    setStartTime(null)
+  }
+
+  const handleOpen = () => {
+    setIsOpen(true)
+    setStartTime(Date.now())
+  }
 
   useEffect(() => {
-    if (isOpen && transcript.length === 0) {
-      setTranscript([{ role: 'agent', content: agent.greeting }])
+    if (isOpen && transcript.length === 0 && agent) {
+      const greeting: Message = { 
+        role: 'agent', 
+        content: agent.greeting,
+        timestamp: Date.now()
+      }
+      setTranscript([greeting])
       setIsSpeaking(true)
       setTimeout(() => setIsSpeaking(false), 3000)
     }
-  }, [isOpen, agent.greeting, transcript.length])
+  }, [isOpen, agent, transcript.length])
 
   const toggleListening = () => {
     setIsListening(!isListening)
+    // TODO: Integrate with ElevenLabs Conversational AI SDK
   }
+
+  const addUserMessage = (content: string) => {
+    const userMsg: Message = { role: 'user', content, timestamp: Date.now() }
+    setTranscript(prev => [...prev, userMsg])
+    
+    setIsSpeaking(true)
+    setTimeout(() => {
+      const responses: Record<string, string> = {
+        'What do you offer?': "We build AI-powered platforms that solve real business problems. We have 17 platforms ready to use, covering everything from investor pitch practice to grant discovery. Or if you have a specific problem, we can partner with you to build a custom solution.",
+        'How does pricing work?': "We have three tiers: Starter at $49/month gets you any 3 platforms, Builder at $99/month gives you 7 platforms, and Scale at $199/month unlocks all 17. There's also a free community option if you're just exploring. What kind of problem are you trying to solve?",
+        'Tell me about partnership': "Partnership is for people with a problem worth solving. You bring the problem, we build the solution together. You stay involved as we build it in days, not months. Then we split the revenue - typically 10-30% depending on your ongoing involvement. What problem are you seeing in your industry?",
+      }
+      
+      const agentMsg: Message = { 
+        role: 'agent', 
+        content: responses[content] || "That's a great question. Could you tell me a bit more about what you're looking for? Are you exploring our existing platforms, or do you have a specific problem you'd like us to help solve?",
+        timestamp: Date.now()
+      }
+      setTranscript(prev => [...prev, agentMsg])
+      setIsSpeaking(false)
+    }, 1500)
+  }
+
+  if (!agent) return null
 
   return (
     <>
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpen}
         className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
           isOpen ? 'scale-0' : 'scale-100'
         } bg-accent hover:bg-white text-black shadow-lg hover:shadow-accent/20`}
+        aria-label="Open voice assistant"
       >
         <MessageCircle size={24} />
       </button>
 
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] bg-gray-dark border border-gray-border shadow-2xl">
-          <div className="flex items-center justify-between p-4 border-b border-gray-border">
+        <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] bg-gray-dark border border-gray-border shadow-2xl rounded-lg overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b border-gray-border bg-black/20">
             <div className="flex items-center gap-3">
               <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                 isSpeaking ? 'bg-accent animate-pulse' : 'bg-gray-mid'
@@ -53,7 +150,11 @@ export function VoiceAgent() {
                 <p className="text-xs text-gray-light">{agent.personality}</p>
               </div>
             </div>
-            <button onClick={() => { setIsOpen(false); setTranscript([]) }} className="text-gray-light hover:text-white">
+            <button 
+              onClick={handleClose} 
+              className="text-gray-light hover:text-white transition-colors"
+              aria-label="Close voice assistant"
+            >
               <X size={20} />
             </button>
           </div>
@@ -61,8 +162,10 @@ export function VoiceAgent() {
           <div className="h-64 overflow-y-auto p-4 space-y-4">
             {transcript.map((message, index) => (
               <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-3 text-sm ${
-                  message.role === 'user' ? 'bg-accent text-black' : 'bg-gray-mid text-white'
+                <div className={`max-w-[80%] p-3 text-sm rounded-lg ${
+                  message.role === 'user' 
+                    ? 'bg-accent text-black' 
+                    : 'bg-gray-mid text-white'
                 }`}>
                   {message.content}
                 </div>
@@ -70,7 +173,9 @@ export function VoiceAgent() {
             ))}
             {isListening && (
               <div className="flex justify-end">
-                <div className="bg-accent/20 text-accent p-3 text-sm animate-pulse">Listening...</div>
+                <div className="bg-accent/20 text-accent p-3 text-sm rounded-lg animate-pulse">
+                  Listening...
+                </div>
               </div>
             )}
           </div>
@@ -80,8 +185,11 @@ export function VoiceAgent() {
               <button
                 onClick={toggleListening}
                 className={`w-14 h-14 rounded-full flex items-center justify-center transition-all ${
-                  isListening ? 'bg-red-500 animate-pulse' : 'bg-accent hover:bg-white'
+                  isListening 
+                    ? 'bg-red-500 animate-pulse' 
+                    : 'bg-accent hover:bg-white'
                 } text-black`}
+                aria-label={isListening ? 'Stop listening' : 'Start listening'}
               >
                 {isListening ? <MicOff size={24} /> : <Mic size={24} />}
               </button>
@@ -91,14 +199,15 @@ export function VoiceAgent() {
             </p>
           </div>
 
-          <div className="p-4 border-t border-gray-border">
+          <div className="p-4 border-t border-gray-border bg-black/10">
             <p className="text-xs text-gray-light mb-2">Quick questions:</p>
             <div className="flex flex-wrap gap-2">
               {['What do you offer?', 'How does pricing work?', 'Tell me about partnership'].map((q) => (
                 <button
                   key={q}
-                  onClick={() => setTranscript([...transcript, { role: 'user', content: q }])}
-                  className="text-xs bg-gray-mid px-3 py-1.5 text-gray-light hover:text-white transition-colors"
+                  onClick={() => addUserMessage(q)}
+                  disabled={isSpeaking}
+                  className="text-xs bg-gray-mid px-3 py-1.5 text-gray-light hover:text-white hover:bg-gray-mid/80 transition-colors rounded disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {q}
                 </button>

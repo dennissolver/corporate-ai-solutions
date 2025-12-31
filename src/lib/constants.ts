@@ -254,23 +254,16 @@ export const PRICING_TIERS: PricingTier[] = [
   },
 ]
 
-// Voice agent configuration - Natasha
-export const NATASHA_AGENT = {
-  agentId: 'agent_01jwc8jtrpebsb4y3bq1agrgg4',
-  name: 'Natasha',
-  personality: 'Confident, professional, relentlessly helpful',
-  role: 'Sales Development Representative',
-  greeting: "Hi! Thanks for visiting. I'm Natasha, from Corporate AI Solutions. What brought you to us today and what are you hoping to achieve?",
-}
+// Voice Agents - IDs populated by setup:elevenlabs script or env vars
+// After running `npm run setup:elevenlabs`, agent IDs will be in env vars or elevenlabs-agents.ts
 
-// Legacy agent configs (kept for potential future multi-agent setup)
 export const VOICE_AGENTS: Record<string, VoiceAgentConfig> = {
-  natasha: {
-    agentId: NATASHA_AGENT.agentId,
-    name: NATASHA_AGENT.name,
-    personality: NATASHA_AGENT.personality,
-    greeting: NATASHA_AGENT.greeting,
-    pageContext: 'all',
+  alex: {
+    agentId: process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_ALEX || '',
+    name: 'Alex',
+    personality: 'Warm and approachable, direct and efficient',
+    greeting: "Hey! I'm Alex from Long Tail AI Studio. We build AI platforms fast and cheap. Are you looking to use our existing platforms, or do you have a problem you'd like us to solve?",
+    pageContext: 'homepage',
     canRoute: {
       solutions: true,
       partner: true,
@@ -278,7 +271,49 @@ export const VOICE_AGENTS: Record<string, VoiceAgentConfig> = {
       pricing: true,
     },
   },
+  scout: {
+    agentId: process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_SCOUT || '',
+    name: 'Scout',
+    personality: 'Curious and helpful, knowledgeable about platforms',
+    greeting: "Hi, I'm Scout! I help people find the right AI platform for their needs. We've got 17 to choose from. What kind of problem are you trying to solve?",
+    pageContext: 'marketplace',
+    canRoute: {
+      solutions: true,
+      partner: true,
+      community: false,
+      pricing: true,
+    },
+  },
+  morgan: {
+    agentId: process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_MORGAN || '',
+    name: 'Morgan',
+    personality: 'Professional and consultative, deal-savvy',
+    greeting: "Hello, I'm Morgan. I handle partnerships, investment inquiries, and team opportunities for the studio. Which of these brings you here today?",
+    pageContext: 'business',
+    canRoute: {
+      solutions: false,
+      partner: true,
+      community: true,
+      pricing: false,
+    },
+  },
+  victoria: {
+    agentId: process.env.NEXT_PUBLIC_ELEVENLABS_AGENT_VICTORIA || '',
+    name: 'Victoria',
+    personality: 'Refined and professional, efficient at qualification',
+    greeting: "Hello, I'm Victoria. I help qualify investment inquiries for the Long Tail AI Studio. Are you exploring investment opportunities with us today?",
+    pageContext: 'invest',
+    canRoute: {
+      solutions: false,
+      partner: true,
+      community: true,
+      pricing: false,
+    },
+  },
 }
+
+// Default agent when specific agent isn't available
+export const DEFAULT_AGENT = 'alex'
 
 // Stats for homepage
 export const STATS = [

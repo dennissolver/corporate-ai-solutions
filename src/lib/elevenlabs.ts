@@ -1,13 +1,35 @@
 import { VoiceAgentConfig } from '@/types'
 
+// Page to agent mapping
+const PAGE_AGENT_MAP: Record<string, string> = {
+  '/': 'alex',
+  '/pricing': 'alex',
+  '/contact': 'alex',
+  '/marketplace': 'scout',
+  '/studio/portfolio': 'scout',
+  '/partner': 'morgan',
+  '/studio/join': 'morgan',
+  '/studio/invest': 'victoria',
+  '/community': 'alex',
+  '/voice-ai': 'alex',
+  '/studio/thesis': 'morgan',
+}
+
 // Get the appropriate agent for a page
-export function getAgentForPage(pathname: string): 'alex' | 'scout' | 'morgan' {
-  if (pathname.startsWith('/solutions')) {
-    return 'scout'
+export function getAgentForPage(pathname: string): string {
+  // Check exact match first
+  if (PAGE_AGENT_MAP[pathname]) {
+    return PAGE_AGENT_MAP[pathname]
   }
-  if (pathname.startsWith('/partner')) {
-    return 'morgan'
-  }
+  
+  // Check prefix matches
+  if (pathname.startsWith('/marketplace')) return 'scout'
+  if (pathname.startsWith('/studio/portfolio')) return 'scout'
+  if (pathname.startsWith('/studio/invest')) return 'victoria'
+  if (pathname.startsWith('/partner')) return 'morgan'
+  if (pathname.startsWith('/studio/join')) return 'morgan'
+  
+  // Default to Alex
   return 'alex'
 }
 
