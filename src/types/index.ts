@@ -1,0 +1,107 @@
+// Platform/Solution types
+export interface Platform {
+  id: string
+  name: string
+  slug: string
+  tagline: string
+  problem: string
+  description: string
+  url: string
+  status: 'live' | 'building' | 'planned'
+  category: 'performance' | 'intelligence' | 'industry'
+  hasVoiceAI: boolean
+  featured?: boolean
+}
+
+// Lead types
+export interface Lead {
+  id?: string
+  created_at?: string
+  name: string
+  email: string
+  phone?: string
+  company?: string
+  source_page: string
+  source_agent?: string
+  intent: 'subscribe' | 'partner' | 'demo' | 'question' | 'community'
+  problem_description?: string
+  qualified?: boolean
+  notes?: string
+}
+
+// Voice conversation types
+export interface VoiceConversation {
+  id?: string
+  created_at?: string
+  session_id: string
+  agent_name: string
+  page: string
+  transcript?: Array<{
+    role: 'user' | 'agent'
+    content: string
+    timestamp: string
+  }>
+  duration_seconds?: number
+  outcome?: 'lead_captured' | 'routed' | 'abandoned' | 'faq_answered' | 'community_referred'
+  lead_id?: string
+}
+
+// Waitlist types
+export interface WaitlistEntry {
+  id?: string
+  created_at?: string
+  email: string
+  platform: string
+  source?: string
+}
+
+// Voice agent config
+export interface VoiceAgentConfig {
+  agentId: string
+  name: string
+  personality: string
+  greeting: string
+  pageContext: string
+  canRoute: {
+    solutions: boolean
+    partner: boolean
+    community: boolean
+    pricing: boolean
+  }
+}
+
+// Page meta types
+export interface PageMeta {
+  title: string
+  description: string
+  ogImage?: string
+}
+
+// Navigation types
+export interface NavItem {
+  label: string
+  href: string
+  children?: NavItem[]
+}
+
+// Pricing types
+export interface PricingTier {
+  name: string
+  price: string
+  period?: string
+  description: string
+  features: string[]
+  cta: {
+    label: string
+    href: string
+  }
+  variant: 'default' | 'featured' | 'partner'
+}
+
+// Form state types
+export interface FormState {
+  isSubmitting: boolean
+  isSuccess: boolean
+  isError: boolean
+  message?: string
+}

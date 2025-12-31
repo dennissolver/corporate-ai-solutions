@@ -1,0 +1,218 @@
+import { Metadata } from 'next'
+import { Button } from '@/components/ui/Button'
+
+export const metadata: Metadata = {
+  title: 'Our Thesis',
+  description: 'The Long Tail of AI Solutions. Build cheap. Grow to $1M ARR. Auction for 6-10x. Repeat.',
+}
+
+export default function ThesisPage() {
+  return (
+    <>
+      {/* Hero */}
+      <section className="section bg-grid min-h-[60vh] flex items-center">
+        <div className="max-w-4xl mx-auto">
+          <div className="tag mb-4">Our Thesis</div>
+          <h1 className="mb-6">The Long Tail of AI Solutions</h1>
+          <p className="text-2xl text-gray-light">
+            Amazon proved you don&apos;t need bestsellers when you have infinite shelf space.
+            We&apos;re proving you don&apos;t need unicorns when you can build fast and cheap.
+          </p>
+        </div>
+      </section>
+
+      {/* The Insight */}
+      <section className="section bg-gray-dark">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">The Insight</h2>
+          <div className="prose prose-lg text-gray-light space-y-6">
+            <p>
+              Before AI, software was expensive. A single product cost $500K+ and 18 months to build.
+              You needed massive scale to justify the investment. VCs needed 100x returns.
+              Most ideas never got built.
+            </p>
+            <p className="text-white font-bold text-xl">AI changed the economics:</p>
+            <div className="grid md:grid-cols-3 gap-6 my-8">
+              <div className="card text-center">
+                <div className="font-mono text-sm text-accent mb-2">BUILD COST</div>
+                <div className="text-2xl font-bold">$500K → $5K</div>
+                <div className="text-sm text-gray-light">100x reduction</div>
+              </div>
+              <div className="card text-center">
+                <div className="font-mono text-sm text-accent mb-2">TIME TO MARKET</div>
+                <div className="text-2xl font-bold">18mo → 7 days</div>
+                <div className="text-sm text-gray-light">75x faster</div>
+              </div>
+              <div className="card text-center">
+                <div className="font-mono text-sm text-accent mb-2">INFRASTRUCTURE</div>
+                <div className="text-2xl font-bold">Millions → $0</div>
+                <div className="text-sm text-gray-light">Serverless</div>
+              </div>
+            </div>
+            <p>
+              This is the same shift that enabled Amazon&apos;s long tail.
+              Suddenly, every book was worth stocking.
+              <strong className="text-white"> Now, every valid problem is worth solving.</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* The Model */}
+      <section className="section">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">The Model</h2>
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            <div className="p-6 border border-red-500/30 bg-red-500/5">
+              <h3 className="text-lg font-bold mb-4 text-red-400">❌ Traditional VC</h3>
+              <ul className="space-y-3 text-gray-light">
+                <li>• Need 1 unicorn out of 20 investments</li>
+                <li>• $500K minimum per bet</li>
+                <li>• 90% complete failures</li>
+                <li>• 7-10 year liquidity wait</li>
+                <li>• Binary outcomes: moonshot or bust</li>
+              </ul>
+            </div>
+            <div className="p-6 border-2 border-accent bg-accent/5">
+              <h3 className="text-lg font-bold mb-4 text-accent">✓ Long Tail Studio</h3>
+              <ul className="space-y-3 text-gray-light">
+                <li>• Need 50 subscribers per platform</li>
+                <li>• $10K per platform (build + GTM)</li>
+                <li>• Portfolio diversification</li>
+                <li>• Cash flow in months</li>
+                <li>• Gradient outcomes: all levels win</li>
+              </ul>
+            </div>
+          </div>
+          <div className="card p-8">
+            <h3 className="text-xl font-bold mb-4">The Math</h3>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <p className="text-gray-light mb-4">Per platform:</p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex justify-between"><span>Build + GTM:</span> <span className="font-mono">$10,000</span></li>
+                  <li className="flex justify-between"><span>Break-even:</span> <span className="font-mono">50 × $50 = $2,500 MRR</span></li>
+                  <li className="flex justify-between"><span>Payback:</span> <span className="font-mono">4 months</span></li>
+                </ul>
+              </div>
+              <div>
+                <p className="text-gray-light mb-4">Portfolio of 100 platforms:</p>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex justify-between"><span>20% fail:</span> <span className="font-mono text-red-400">-$200K</span></li>
+                  <li className="flex justify-between"><span>50% break even:</span> <span className="font-mono">$0</span></li>
+                  <li className="flex justify-between"><span>25% steady ($10K MRR):</span> <span className="font-mono text-accent">$250K MRR</span></li>
+                  <li className="flex justify-between"><span>5% breakout ($50K+ MRR):</span> <span className="font-mono text-accent">$250K+ MRR</span></li>
+                </ul>
+              </div>
+            </div>
+            <div className="mt-6 pt-6 border-t border-gray-border text-center">
+              <p className="text-2xl font-bold text-accent">$500K+ MRR = $6M+ ARR</p>
+              <p className="text-gray-light">Before any exits.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Exit Playbook */}
+      <section className="section bg-gray-dark">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">The Exit Playbook</h2>
+          <p className="text-xl text-gray-light mb-8">
+            We don&apos;t build to hold forever. We build to exit.
+          </p>
+          <div className="grid md:grid-cols-4 gap-4 mb-8">
+            {[
+              { stage: 'BUILD', cost: '$5-10K', time: '7 days', color: 'accent' },
+              { stage: 'VALIDATE', cost: '50 subs', time: '6 months', color: 'accent' },
+              { stage: 'GROW', cost: '$1M ARR', time: '18-24 mo', color: 'orange' },
+              { stage: 'EXIT', cost: '6-10x', time: 'Auction', color: 'purple' },
+            ].map((item, i) => (
+              <div key={item.stage} className="card text-center">
+                <div className="font-mono text-xs text-gray-light mb-2">STAGE {i + 1}</div>
+                <div className="font-bold mb-2">{item.stage}</div>
+                <div className={`text-2xl font-bold text-${item.color}`}>{item.cost}</div>
+                <div className="text-xs text-gray-light">{item.time}</div>
+              </div>
+            ))}
+          </div>
+          <div className="card-orange p-8 text-center">
+            <p className="text-xl font-bold mb-2">Target Exit: $6-10M per platform</p>
+            <p className="text-gray-light">
+              Corporates pay 6-10x because our 24 months beats their 48 months.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Voice AI */}
+      <section className="section">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">Why Voice AI?</h2>
+          <p className="text-xl text-gray-light mb-8">
+            Not every platform needs voice. But voice AI is our edge.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            {[
+              { title: 'Differentiation', desc: "Competitors can copy features, not conversations" },
+              { title: 'Stickiness', desc: "Voice creates habits, habits create retention" },
+              { title: 'Data Moat', desc: "Every conversation improves the product" },
+              { title: 'Premium Positioning', desc: "Voice commands premium pricing" },
+            ].map((item) => (
+              <div key={item.title} className="flex gap-4">
+                <span className="text-accent text-xl">✓</span>
+                <div>
+                  <h3 className="font-bold">{item.title}</h3>
+                  <p className="text-sm text-gray-light">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3-Year Vision */}
+      <section className="section bg-gray-dark">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl font-bold mb-8">The 3-Year Vision</h2>
+          <div className="space-y-8">
+            {[
+              { year: 'Year 1', title: 'Foundation', items: ['30 platforms (17 built, 13 more)', '$50K MRR target', 'Prove the model works'] },
+              { year: 'Year 2', title: 'Scale', items: ['70 platforms', '$200K MRR target', 'First exits/acqui-hires', 'Team of 5-10'] },
+              { year: 'Year 3', title: 'Cash Cow', items: ['100+ platforms', '$500K+ MRR', 'Quarterly distributions', 'Breakout platforms raising independently'] },
+            ].map((y) => (
+              <div key={y.year} className="card p-6">
+                <div className="flex items-center gap-4 mb-4">
+                  <span className="font-mono text-accent">{y.year}</span>
+                  <h3 className="text-xl font-bold">{y.title}</h3>
+                </div>
+                <ul className="grid md:grid-cols-2 gap-2">
+                  {y.items.map((item) => (
+                    <li key={item} className="text-gray-light text-sm flex items-center gap-2">
+                      <span className="text-accent">•</span> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="mb-4">Join the Long Tail</h2>
+          <p className="text-xl text-gray-light mb-8">
+            Whether you want to use, build, invest, or join—there&apos;s a path for you.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button href="/marketplace">Use Platforms</Button>
+            <Button href="/partner" variant="orange">Bring a Problem</Button>
+            <Button href="/studio/invest" variant="secondary">Invest</Button>
+            <Button href="/studio/join" variant="secondary">Join Team</Button>
+          </div>
+        </div>
+      </section>
+    </>
+  )
+}
