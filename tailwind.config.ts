@@ -40,8 +40,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ['Syne', 'sans-serif'],
-        mono: ['Space Mono', 'monospace'],
+        display: ['DM Sans', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       animation: {
         'pulse-slow': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
