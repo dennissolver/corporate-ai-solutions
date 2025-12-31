@@ -170,7 +170,8 @@
 
   /* Grid background */
   .bg-grid {
-    @apply bg-grid-pattern bg-grid;
+    @apply bg-grid-pattern;
+    background-size: 50px 50px;
   }
 
   /* Voice agent button */
