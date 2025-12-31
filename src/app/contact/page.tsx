@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Phone, Mail, MapPin } from 'lucide-react'
+import { Phone, Mail, MapPin, Calendar, Linkedin, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
-import { SITE } from '@/lib/constants'
+import { SITE, FOUNDER } from '@/lib/constants'
 
 export default function ContactPage() {
   const searchParams = useSearchParams()
@@ -41,11 +41,31 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="section bg-grid">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="tag tag-center mb-4">Contact</div>
+          <p className="text-accent font-medium mb-4">Contact</p>
           <h1 className="mb-6">{getTitle()}</h1>
-          <p className="text-xl text-gray-light">
+          <p className="text-xl text-gray-light mb-8">
             Let&apos;s talk about how we can work together.
           </p>
+          
+          {/* Primary CTA - Calendly */}
+          <div className="inline-flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href={FOUNDER.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-lg inline-flex items-center gap-2"
+            >
+              <Calendar size={20} /> Book a Call with {FOUNDER.name.split(' ')[0]}
+            </a>
+            <a 
+              href={FOUNDER.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-secondary btn-lg inline-flex items-center gap-2"
+            >
+              <Linkedin size={20} /> Connect on LinkedIn
+            </a>
+          </div>
         </div>
       </section>
 
@@ -58,6 +78,26 @@ export default function ContactPage() {
               <div>
                 <h2 className="text-xl font-bold mb-6">Direct Contact</h2>
                 <div className="space-y-4">
+                  <a 
+                    href={FOUNDER.calendly}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-accent hover:text-white transition-colors font-medium"
+                  >
+                    <Calendar size={20} />
+                    Book a Call
+                    <ExternalLink size={14} />
+                  </a>
+                  <a 
+                    href={FOUNDER.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 text-gray-light hover:text-accent transition-colors"
+                  >
+                    <Linkedin size={20} />
+                    LinkedIn
+                    <ExternalLink size={14} />
+                  </a>
                   <a 
                     href={`tel:${SITE.phone}`} 
                     className="flex items-center gap-3 text-gray-light hover:text-accent transition-colors"
@@ -104,10 +144,19 @@ export default function ContactPage() {
                 <div className="card-green p-8 text-center">
                   <div className="text-4xl mb-4">✓</div>
                   <h3 className="text-xl font-bold mb-2">Message Sent!</h3>
-                  <p className="text-gray-light">We&apos;ll get back to you within 24-48 hours.</p>
+                  <p className="text-gray-light mb-4">We&apos;ll get back to you within 24-48 hours.</p>
+                  <p className="text-sm text-gray-light">
+                    Want to talk sooner?{' '}
+                    <a href={FOUNDER.calendly} target="_blank" rel="noopener noreferrer" className="text-accent hover:text-white">
+                      Book a call →
+                    </a>
+                  </p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="card p-8 space-y-6">
+                  <p className="text-sm text-gray-light mb-4">
+                    Or leave a message and we&apos;ll get back to you:
+                  </p>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label className="label">Your Name *</label>
@@ -180,17 +229,28 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Book a Call */}
+      {/* Book a Call CTA */}
       <section className="section">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="mb-4">Prefer to Talk?</h2>
           <p className="text-gray-light mb-8">
-            Book a 15-30 minute call. No pressure—just a conversation.
+            Book a 15-30 minute call. No pressure—just a conversation about what you&apos;re trying to solve.
           </p>
-          <div className="flex justify-center gap-4">
-            <Button href={`tel:${SITE.phone}`} size="lg">
-              Call Now: {SITE.phoneFormatted}
-            </Button>
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <a 
+              href={FOUNDER.calendly}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary btn-lg inline-flex items-center justify-center gap-2"
+            >
+              <Calendar size={20} /> Book a Call
+            </a>
+            <a 
+              href={`tel:${SITE.phone}`}
+              className="btn btn-secondary btn-lg inline-flex items-center justify-center gap-2"
+            >
+              <Phone size={20} /> Call Now: {SITE.phoneFormatted}
+            </a>
           </div>
         </div>
       </section>

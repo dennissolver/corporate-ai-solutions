@@ -8,9 +8,13 @@ export interface Platform {
   description: string
   url: string
   status: 'live' | 'building' | 'planned'
-  category: 'performance' | 'intelligence' | 'industry'
+  category: 'voice-coaching' | 'business-tools' | 'generators'
   hasVoiceAI: boolean
   featured?: boolean
+  type: 'parent' | 'child'
+  parentId?: string // For child platforms
+  children?: string[] // IDs of child platforms for parents
+  isGenerator?: boolean // Can generate white-label versions
 }
 
 // Lead types
@@ -62,6 +66,8 @@ export interface VoiceAgentConfig {
   personality: string
   greeting: string
   pageContext: string
+  gender?: 'male' | 'female'
+  avatar?: string
   canRoute: {
     solutions: boolean
     partner: boolean

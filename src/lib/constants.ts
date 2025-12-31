@@ -13,6 +13,39 @@ export const SITE = {
   location: 'Brisbane, Queensland, Australia',
 }
 
+// Founder info
+export const FOUNDER = {
+  name: 'Dennis Quirk',
+  title: 'Founder & CEO',
+  linkedin: 'https://www.linkedin.com/in/denniskl/',
+  calendly: 'https://www.calendly.com/mcmdennis',
+  youtube: 'https://www.youtube.com/@globalbuildtech',
+  newsletters: {
+    goOffsite: {
+      name: 'Go Offsite',
+      url: 'https://www.linkedin.com/newsletters/go-offsite-7016211191035289600/',
+      description: 'Insights on modular construction and prefab building methods.',
+    },
+    biAiAdvantage: {
+      name: 'BI AI Advantage',
+      url: 'https://www.linkedin.com/newsletters/bi-ai-advantage-7218131009064640512/',
+      description: 'Business intelligence meets AI for real business outcomes.',
+    },
+  },
+  companies: {
+    globalBuildtech: {
+      name: 'Global Buildtech',
+      url: 'https://www.global-buildtech.com',
+      description: 'Modular construction consultancy. 30+ years of building expertise.',
+    },
+    factory2key: {
+      name: 'Factory2Key',
+      url: 'https://www.factory2key.com.au',
+      description: 'Turnkey modular homes. SDA specialist. Where Checkpoint was born.',
+    },
+  },
+}
+
 // Skool community
 export const SKOOL = {
   url: process.env.NEXT_PUBLIC_SKOOL_URL || 'https://www.skool.com/the-easily-distracted-5598',
@@ -47,136 +80,246 @@ export const NAV_ITEMS: NavItem[] = [
   },
 ]
 
-// All platforms
+// All platforms - Parent/Child Structure
+// Parents are the main platforms to visit
+// Children are examples of white-label output from generators
+
 export const PLATFORMS: Platform[] = [
-  // High-Stakes Performance
+  // ============================================
+  // PARENT PLATFORMS (Public Landing Pages)
+  // ============================================
+  
+  // Voice Coaching Suite
   {
-    id: 'raiseready',
-    name: 'RaiseReady Impact',
-    slug: 'raiseready',
-    tagline: 'Practice your pitch with AI investors',
-    problem: 'Founders bomb investor pitches',
-    description: 'Practice your pitch with AI investors—skeptical, supportive, technical, or impact-focused. Voice coaching with ElevenLabs. Real-time feedback with Claude AI. Match with investors when you\'re ready.',
-    url: 'https://raiseready-six.vercel.app',
-    status: 'live',
-    category: 'performance',
-    hasVoiceAI: true,
-    featured: true,
-  },
-  {
-    id: 'rehearsals',
-    name: 'Rehearsals.ai',
-    slug: 'rehearsals',
-    tagline: 'Universal rehearsal platform',
-    problem: 'Any high-stakes moment',
-    description: 'Universal rehearsal platform. Same core technology, infinite applications.',
+    id: 'rehearsals-ai',
+    name: 'Rehearsals AI',
+    slug: 'rehearsals-ai',
+    tagline: 'The suite of AI voice coaching verticals',
+    problem: 'High-stakes conversations need practice',
+    description: 'Our platform generation model for AI voice coaching. Multiple verticals built and ready to spin up for any industry that needs conversation practice.',
     url: 'https://rehearsals-ai.vercel.app',
     status: 'live',
-    category: 'performance',
+    category: 'voice-coaching',
     hasVoiceAI: true,
+    featured: true,
+    type: 'parent',
+    isGenerator: true,
   },
   {
-    id: 'interviews',
-    name: 'Universal Interviews',
-    slug: 'interviews',
-    tagline: 'Practice job interviews with AI',
-    problem: 'Job interview anxiety',
-    description: 'Practice job interviews with AI personas. Get feedback. Match with employers when ready.',
-    url: '#',
-    status: 'building',
-    category: 'performance',
+    id: 'raiseready-template',
+    name: 'RaiseReady Template',
+    slug: 'raiseready-template',
+    tagline: 'White-label founder/investor platform generator',
+    problem: 'Founders need pitch practice, investors need deal flow management',
+    description: 'Generator platform for creating white-label versions for founders to get investment-ready and investors to manage incoming pitch outreach. Spin up customized versions in days.',
+    url: 'https://raiseready-template.vercel.app',
+    status: 'live',
+    category: 'generators',
     hasVoiceAI: true,
+    featured: true,
+    type: 'parent',
+    isGenerator: true,
+    children: ['raiseready-impact', 'lionhearted', 'ether-software', 'soxton-law', 'msci', 'creative-action'],
+  },
+  {
+    id: 'connexions',
+    name: 'Connexions',
+    slug: 'connexions',
+    tagline: 'White-label AI interviewer and researcher panels',
+    problem: 'Customer research and interviews don\'t scale',
+    description: 'Generator platform for white-label AI voice interviewers. Customer research, user feedback, exit interviews, compliance audits - all with observable quality and measurable performance.',
+    url: 'https://connexions-silk.vercel.app',
+    status: 'live',
+    category: 'generators',
+    hasVoiceAI: true,
+    featured: true,
+    type: 'parent',
+    isGenerator: true,
+    children: ['universal-interviews'],
   },
   
-  // Business Intelligence
+  // Business Tools
+  {
+    id: 'dealfindrs',
+    name: 'DealFindrs',
+    slug: 'dealfindrs',
+    tagline: 'AI-powered property deal assessment',
+    problem: 'Property developers waste time on bad deals',
+    description: 'Platform for property developers to easily assess deals using AI voice coaches and analysis tools. Fast filtering, smart recommendations, voice-powered deal evaluation.',
+    url: 'https://deal-findrs.vercel.app',
+    status: 'live',
+    category: 'business-tools',
+    hasVoiceAI: true,
+    featured: true,
+    type: 'parent',
+  },
   {
     id: 'tenderwatch',
     name: 'TenderWatch',
     slug: 'tenderwatch',
-    tagline: 'AI-powered government tender monitoring',
-    problem: 'Missing government tenders',
-    description: 'AI-powered government tender monitoring. Never miss a relevant RFP. Automated alerts matching your capabilities.',
+    tagline: 'Government tender monitoring made easy',
+    problem: 'Australian businesses miss relevant government tenders',
+    description: 'Makes monitoring government tenders in Australia easy and convenient. AI-powered matching, automated alerts, never miss a relevant RFP again.',
     url: 'https://tenderwatch-alpha.vercel.app',
     status: 'live',
-    category: 'intelligence',
+    category: 'business-tools',
     hasVoiceAI: false,
+    type: 'parent',
   },
   {
-    id: 'dealfindrs',
-    name: 'Deal Findrs',
-    slug: 'deal-findrs',
-    tagline: 'AI deal aggregation',
-    problem: 'Deals buried across sources',
-    description: 'AI aggregation that surfaces deals, opportunities, and market intelligence from multiple sources.',
-    url: 'https://deal-findrs.vercel.app',
+    id: 'checkpoint',
+    name: 'Checkpoint',
+    slug: 'checkpoint',
+    tagline: 'Modular industry project management',
+    problem: 'Generic project tools don\'t fit industry workflows',
+    description: 'Modular industry project management and execution platform. Configurable for construction, manufacturing, services - any industry with complex project workflows.',
+    url: 'https://f2k-checkpoint-new.vercel.app',
     status: 'live',
-    category: 'intelligence',
+    category: 'business-tools',
     hasVoiceAI: false,
+    type: 'parent',
   },
-  
-  // Industry Solutions
   {
     id: 'tourlingo',
     name: 'TourLingo',
     slug: 'tourlingo',
     tagline: 'Multi-language tourism platform',
-    problem: 'Tour operators serving international visitors',
-    description: 'Multi-language tourism platform with operator portal. AI-powered translation and booking management. Complete dual-app ecosystem for tour operators and travelers.',
+    problem: 'Tour operators struggle with international visitors',
+    description: 'Platform for the tourism guiding industry. Multi-language support, booking management, operator portal. Complete dual-app ecosystem for tour operators and travelers.',
     url: 'https://tour-lingo.vercel.app',
     status: 'live',
-    category: 'industry',
+    category: 'business-tools',
     hasVoiceAI: true,
-    featured: true,
+    type: 'parent',
   },
   {
-    id: 'soxton',
-    name: 'Soxton Law AI',
-    slug: 'soxton-law',
-    tagline: 'AI-enhanced legal practice tools',
-    problem: 'Legal research takes too long',
-    description: 'AI-enhanced legal practice tools. Document analysis, case research, client communication automation.',
-    url: 'https://soxton-law-ai.vercel.app',
+    id: 'cleanclose',
+    name: 'CleanClose',
+    slug: 'cleanclose',
+    tagline: 'Help businesses close down cleanly',
+    problem: 'Business shutdown is messy and stressful',
+    description: 'Platform to help businesses close down cleanly. Compliance checklists, stakeholder communication, asset management, legal requirements - all in one place.',
+    url: 'https://corporateaisolutions.com/cleanclosewaitlist/',
+    status: 'building',
+    category: 'business-tools',
+    hasVoiceAI: false,
+    type: 'parent',
+  },
+
+  // ============================================
+  // CHILD PLATFORMS (White-Label Examples)
+  // ============================================
+  
+  // Children of RaiseReady Template
+  {
+    id: 'raiseready-impact',
+    name: 'RaiseReady Impact',
+    slug: 'raiseready-impact',
+    tagline: 'AI pitch coaching for impact founders',
+    problem: 'Impact founders need specialized pitch practice',
+    description: 'Live platform for the founder/investor impact sector. Practice pitches with AI investors focused on impact metrics, ESG, and social returns.',
+    url: 'https://raiseready-six.vercel.app',
     status: 'live',
-    category: 'industry',
+    category: 'voice-coaching',
     hasVoiceAI: true,
+    type: 'child',
+    parentId: 'raiseready-template',
   },
   {
     id: 'lionhearted',
     name: 'Lionhearted Business Online',
     slug: 'lionhearted',
-    tagline: 'Business coaching platform',
-    problem: 'Scaling business coaching',
-    description: 'Business coaching platform with AI-enhanced learning modules and progress tracking.',
+    tagline: 'Business coaching with AI pitch practice',
+    problem: 'Business coaching clients need pitch confidence',
+    description: 'White-label RaiseReady for Lionhearted Business Online. Founder supporter version with customized branding and coaching integration.',
     url: 'https://lionhearted-business-online.vercel.app',
     status: 'live',
-    category: 'industry',
-    hasVoiceAI: false,
+    category: 'voice-coaching',
+    hasVoiceAI: true,
+    type: 'child',
+    parentId: 'raiseready-template',
   },
   {
-    id: 'creativeaction',
-    name: 'Creative Action Consulting',
-    slug: 'creative-action',
-    tagline: 'Consulting firm digital presence',
-    problem: 'Client engagement in consulting',
-    description: 'Consulting firm digital presence with AI-powered service recommendations and client portal.',
-    url: 'https://creative-action-consulting.vercel.app',
-    status: 'live',
-    category: 'industry',
-    hasVoiceAI: false,
-  },
-  {
-    id: 'ether',
+    id: 'ether-software',
     name: 'Ether Software',
     slug: 'ether-software',
-    tagline: 'Software company showcase',
-    problem: 'Software company showcase',
-    description: 'Software development company website with project showcase and client engagement tools.',
+    tagline: 'Tech founder pitch preparation',
+    problem: 'Software founders pitching to investors',
+    description: 'White-label RaiseReady for Ether Software. Founder supporter version customized for tech and software companies.',
     url: 'https://ether-software.vercel.app',
     status: 'live',
-    category: 'industry',
-    hasVoiceAI: false,
+    category: 'voice-coaching',
+    hasVoiceAI: true,
+    type: 'child',
+    parentId: 'raiseready-template',
+  },
+  {
+    id: 'soxton-law',
+    name: 'Soxton Law AI',
+    slug: 'soxton-law',
+    tagline: 'Legal sector founder support',
+    problem: 'LegalTech founders need specialized practice',
+    description: 'White-label RaiseReady for Soxton Law. Customized for legal sector founders and law firm innovation teams.',
+    url: 'https://soxton-law-ai.vercel.app',
+    status: 'live',
+    category: 'voice-coaching',
+    hasVoiceAI: true,
+    type: 'child',
+    parentId: 'raiseready-template',
+  },
+  {
+    id: 'msci',
+    name: 'MSCI',
+    slug: 'msci',
+    tagline: 'Investment firm deal flow platform',
+    problem: 'Investment firms managing founder outreach',
+    description: 'White-label RaiseReady for MSCI. Investor version for managing incoming pitch outreach and founder qualification.',
+    url: 'https://msci-lilac.vercel.app',
+    status: 'live',
+    category: 'voice-coaching',
+    hasVoiceAI: true,
+    type: 'child',
+    parentId: 'raiseready-template',
+  },
+  {
+    id: 'creative-action',
+    name: 'Creative Action Consulting',
+    slug: 'creative-action',
+    tagline: 'Consulting firm founder support',
+    problem: 'Consulting clients preparing for investment',
+    description: 'White-label RaiseReady for Creative Action Consulting. Customized for their consulting clients preparing for investment rounds.',
+    url: 'https://creative-action-consulting.vercel.app',
+    status: 'live',
+    category: 'voice-coaching',
+    hasVoiceAI: true,
+    type: 'child',
+    parentId: 'raiseready-template',
+  },
+  
+  // Children of Connexions
+  {
+    id: 'universal-interviews',
+    name: 'Universal Interviews',
+    slug: 'universal-interviews',
+    tagline: 'AI-powered interview panels',
+    problem: 'Scaling customer research interviews',
+    description: 'Generated from Connexions. AI interviewer panels for customer research, user feedback, and market validation at scale.',
+    url: 'https://universal-interviews.vercel.app',
+    status: 'live',
+    category: 'voice-coaching',
+    hasVoiceAI: true,
+    type: 'child',
+    parentId: 'connexions',
   },
 ]
+
+// Helper functions
+export const getParentPlatforms = () => PLATFORMS.filter(p => p.type === 'parent')
+export const getChildPlatforms = () => PLATFORMS.filter(p => p.type === 'child')
+export const getGeneratorPlatforms = () => PLATFORMS.filter(p => p.isGenerator)
+export const getChildrenOf = (parentId: string) => PLATFORMS.filter(p => p.parentId === parentId)
+export const getLivePlatforms = () => PLATFORMS.filter(p => p.status === 'live')
+export const getFeaturedPlatforms = () => PLATFORMS.filter(p => p.featured)
 
 // Pricing tiers
 export const PRICING_TIERS: PricingTier[] = [
@@ -264,6 +407,7 @@ export const VOICE_AGENTS: Record<string, VoiceAgentConfig> = {
     personality: 'Warm and approachable, direct and efficient',
     greeting: "Hey! I'm Alex from Long Tail AI Studio. We build AI platforms fast and cheap. Are you looking to use our existing platforms, or do you have a problem you'd like us to solve?",
     pageContext: 'homepage',
+    gender: 'male',
     canRoute: {
       solutions: true,
       partner: true,
@@ -277,6 +421,8 @@ export const VOICE_AGENTS: Record<string, VoiceAgentConfig> = {
     personality: 'Curious and helpful, knowledgeable about platforms',
     greeting: "Hi, I'm Scout! I help people find the right AI platform for their needs. We've got 17 to choose from. What kind of problem are you trying to solve?",
     pageContext: 'marketplace',
+    gender: 'female',
+    avatar: '/female_avatar.jpeg',
     canRoute: {
       solutions: true,
       partner: true,
@@ -290,6 +436,8 @@ export const VOICE_AGENTS: Record<string, VoiceAgentConfig> = {
     personality: 'Professional and consultative, deal-savvy',
     greeting: "Hello, I'm Morgan. I handle partnerships, investment inquiries, and team opportunities for the studio. Which of these brings you here today?",
     pageContext: 'business',
+    gender: 'female',
+    avatar: '/female_avatar.jpeg',
     canRoute: {
       solutions: false,
       partner: true,
@@ -303,6 +451,8 @@ export const VOICE_AGENTS: Record<string, VoiceAgentConfig> = {
     personality: 'Refined and professional, efficient at qualification',
     greeting: "Hello, I'm Victoria. I help qualify investment inquiries for the Long Tail AI Studio. Are you exploring investment opportunities with us today?",
     pageContext: 'invest',
+    gender: 'female',
+    avatar: '/female_avatar.jpeg',
     canRoute: {
       solutions: false,
       partner: true,

@@ -126,25 +126,55 @@ export function VoiceAgent() {
 
   return (
     <>
-      <button
-        onClick={handleOpen}
-        className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
-          isOpen ? 'scale-0' : 'scale-100'
-        } bg-accent hover:bg-white text-black shadow-lg hover:shadow-accent/20`}
-        aria-label="Open voice assistant"
-      >
-        <MessageCircle size={24} />
-      </button>
+      {/* Floating button - show avatar if agent has one */}
+      {agent.avatar ? (
+        <button
+          onClick={handleOpen}
+          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+            isOpen ? 'scale-0' : 'scale-100'
+          } shadow-lg hover:shadow-accent/20 ring-2 ring-accent ring-offset-2 ring-offset-black overflow-hidden`}
+          aria-label={`Talk to ${agent.name}`}
+        >
+          <img 
+            src={agent.avatar} 
+            alt={agent.name}
+            className="w-full h-full object-cover"
+          />
+        </button>
+      ) : (
+        <button
+          onClick={handleOpen}
+          className={`fixed bottom-6 right-6 z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 ${
+            isOpen ? 'scale-0' : 'scale-100'
+          } bg-accent hover:bg-white text-black shadow-lg hover:shadow-accent/20`}
+          aria-label="Open voice assistant"
+        >
+          <MessageCircle size={24} />
+        </button>
+      )}
 
       {isOpen && (
         <div className="fixed bottom-6 right-6 z-50 w-96 max-w-[calc(100vw-3rem)] bg-gray-dark border border-gray-border shadow-2xl rounded-lg overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b border-gray-border bg-black/20">
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                isSpeaking ? 'bg-accent animate-pulse' : 'bg-gray-mid'
-              }`}>
-                <Mic size={18} className={isSpeaking ? 'text-black' : 'text-white'} />
-              </div>
+              {agent.avatar ? (
+                <div className={`relative ${isSpeaking ? 'ring-2 ring-accent ring-offset-2 ring-offset-gray-dark' : ''}`}>
+                  <img 
+                    src={agent.avatar} 
+                    alt={agent.name}
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  {isSpeaking && (
+                    <span className="absolute -bottom-1 -right-1 w-4 h-4 bg-accent rounded-full animate-pulse" />
+                  )}
+                </div>
+              ) : (
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
+                  isSpeaking ? 'bg-accent animate-pulse' : 'bg-gray-mid'
+                }`}>
+                  <Mic size={18} className={isSpeaking ? 'text-black' : 'text-white'} />
+                </div>
+              )}
               <div>
                 <p className="font-bold text-sm">{agent.name}</p>
                 <p className="text-xs text-gray-light">{agent.personality}</p>
